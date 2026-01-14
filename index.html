@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>ZŁOTE BRAJANKI 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* blokada przewijania */
+}
+
+body {
+  background: url('background.png') no-repeat center center fixed;
+  background-size: cover;
+  color: #e6e6e6;
+  font-family: Montserrat, Arial, sans-serif;
+  display: flex;
+  justify-content: center; /* wyśrodkowanie poziome */
+  align-items: flex-start; /* zaczynamy od góry */
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  width: 100%;
+  max-width: 900px;
+
+  /* odnośniki zaczynają się od środka + trochę niżej */
+  position: absolute;
+  top: calc(50% + 100px);
+  transform: translateY(-50%);
+}
+
+nav a {
+  display: block;
+  text-align: center;
+  padding: 15px;
+  background: rgba(24, 24, 24, 0.85);
+  color: #e6e6e6;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+nav a:hover {
+  background: rgba(42, 42, 42, 0.9);
+}
+
+/* Stopka sponsorów */
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 0;
+}
+
+footer img {
+  height: 300px; /* powiększone o 50% względem poprzedniego 200px */
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* zmniejszamy logo kanapki o 20% i podnosimy o 150px */
+footer img:first-child { 
+  height: 240px; /* 160px * 1.5 */
+  position: relative; 
+  top: -150px; 
+}
+
+/* zwiększamy odstęp między 2 a 3 logo o 1000px */
+footer img:nth-child(3) { 
+  margin-left: 1000px; 
+  height: 300px; 
+}
+
+/* zmniejszamy logo piasekrus o 20% i podnosimy o 150px */
+footer img:nth-child(4) { 
+  height: 240px; /* 160px * 1.5 */
+  position: relative; 
+  top: -150px; 
+}
+
+/* Modal */
+#modalOverlay {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#modalOverlay img {
+  height: 40vh;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #000;
+  cursor: pointer;
+}
+
+/* Niewidoczny przycisk u góry */
+#invisibleButton {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 100px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+}
+</style>
+</head>
+<body>
+
+<!-- Niewidoczny przycisk -->
+<button id="invisibleButton"></button>
+
+<nav>
+  <a href="Niefart.html">Niefart</a>
+  <a href="Fart.html">Fart</a>
+  <a href="Zwrot-akcji.html">Zwrot-akcji</a>
+  <a href="Zagranie.html">Zagranie</a>
+  <a href="Schiza.html">Schiza</a>
+  <a href="Najgorsze-zagranie.html">Najgorsze-zagranie</a>
+  <a href="rodzina.html">rodzina</a>
+  <a href="cringe.html">cringe</a>
+  <a href="Śmieszny-shot.html">Śmieszny-shot</a>
+  <a href="cytat.html">cytat</a>
+  <a href="timing.html">timing</a>
+  <a href="10lat.html">10lat</a>
+  <a href="sigma.html">sigma</a>
+  <a href="upo.html">upo</a>
+  <a href="beka.html">beka</a>
+  <a href="Random.html">Random</a>
+  <a href="krótki-shot.html">krótki-shot</a>
+  <a href="moment-radości.html">moment-radości</a>
+  <a href="typowy-streamer.html">typowy-streamer</a>
+  <a href="rage.html">Rage</a>
+  <a href="Najlepsza-emotka.html">Najlepsza-emotka</a>
+</nav>
+
+<footer>
+  <img id="logoKanapka" src="kanapki-kanapka.png" alt="Kanapki Kanapka">
+  <img id="logoDybibet" src="dybibet.png" alt="Dybibet">
+  <img id="logoGSQ" src="gsq.png" alt="GSQ">
+  <img id="logoPiasekrus" src="piasekrus.png" alt="Piasekrus">
+</footer>
+
+<!-- Modal -->
+<div id="modalOverlay">
+  <img id="modalImage" src="" alt="Zdjęcie">
+</div>
+
+<!-- Audio -->
+<audio id="rybaAudio" src="ryba.mp3"></audio>
+
+<script>
+// Modal dla logotypów
+const modal = document.getElementById('modalOverlay');
+const modalImage = document.getElementById('modalImage');
+
+document.getElementById('logoKanapka').addEventListener('click', () => {
+  modalImage.src = 'michu.png';
+  modal.style.display = 'flex';
+});
+
+document.getElementById('logoDybibet').addEventListener('click', () => {
+  modalImage.src = 'dybidance.avif';
+  modal.style.display = 'flex';
+});
+
+document.getElementById('logoGSQ').addEventListener('click', () => {
+  modalImage.src = 'jagieu.jpg';
+  modal.style.display = 'flex';
+});
+
+document.getElementById('logoPiasekrus').addEventListener('click', () => {
+  modalImage.src = 'sander.jpg';
+  modal.style.display = 'flex';
+});
+
+modal.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+// Przełączanie odtwarzania muzyki po kliknięciu w przycisk
+const invisibleButton = document.getElementById('invisibleButton');
+const rybaAudio = document.getElementById('rybaAudio');
+
+invisibleButton.addEventListener('click', () => {
+  if (rybaAudio.paused) {
+    rybaAudio.play();
+  } else {
+    rybaAudio.pause();
+  }
+});
+</script>
+
+</body>
+</html>
